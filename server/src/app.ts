@@ -15,6 +15,8 @@ app.get("/_healthcheck", (req, res) => {
   res.send("OK");
 });
 
+app.post("/api/v1/video/upload", (req, res) => {});
+
 app.use(handleGlobalError);
 
 export default app;
