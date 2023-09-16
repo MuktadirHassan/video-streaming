@@ -30,7 +30,7 @@
   },
   "scripts": {
     "start": "node --enable-source-maps dist/index.js",
-    "dev": "nodemon --exec \"node -r esbuild-register --trace-warnings src/server.ts\" -e .ts | npx pino-pretty",
+    "dev": "nodemon -P 1000 --legacy-watch --exec \"node -r esbuild-register --trace-warnings src/server.ts\" -e .ts",
     "prebuild": "tsc --noEmit",
     "build": "node esbuild.config.mjs"
   }
