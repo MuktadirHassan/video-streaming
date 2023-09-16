@@ -1,9 +1,10 @@
-import { InputFile } from "@/components/ui/input-file";
+import { Menu } from "@/components/menu";
 
 export default function Home() {
   return (
-    <main className="container mt-2">
-      <InputFile />
+    <main className="">
+      <Menu />
+      <div className="grid lg:grid-cols-5"></div>
     </main>
   );
 }
