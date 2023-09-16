@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { Menu } from "@/components/menu";
+import { Toaster } from "@/components/ui/toaster";
 import Sidebar from "./_components/sidebar";
 import Main from "./_components/main";
 
@@ -28,6 +29,7 @@ export default function RootLayout({
             <div className="grid lg:grid-cols-5">
               <Sidebar />
               <Main>{children}</Main>
+              <Toaster />
             </div>
           </main>
         </ThemeProvider>

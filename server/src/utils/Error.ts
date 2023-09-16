@@ -59,17 +59,17 @@ const handleGlobalError: ErrorRequestHandler = (error, req, res, next) => {
 };
 
 const handleDevErrorResponse = (err: ServerError, res: Response) => {
-  return sendApiResponse(res, err.statusCode, err.message, err.stack);
+  sendApiResponse(res, err.statusCode, err.message, err.stack);
 };
 
 const handleProdErrorResponse = (err: ServerError, res: Response) => {
   // Operational handled errors
   if (err.isOperational) {
-    return sendApiResponse(res, err.statusCode, err.message);
+    sendApiResponse(res, err.statusCode, err.message);
   }
 
   // Not Operational errors
-  return sendApiResponse(res, 500, "Internal Server Error");
+  sendApiResponse(res, 500, "Internal Server Error");
 };
 
 export { ServerError, handleGlobalError };
