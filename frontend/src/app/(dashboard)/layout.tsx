@@ -1,8 +1,11 @@
 import { ThemeProvider } from "@/components/theme-provider";
-import "./global.css";
+import "../global.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { Menu } from "@/components/menu";
+import Sidebar from "./_components/sidebar";
+import Main from "./_components/main";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +23,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn(inter.className, "bg-background")}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
+          <main>
+            <Menu />
+            <div className="grid lg:grid-cols-5">
+              <Sidebar />
+              <Main>{children}</Main>
+            </div>
+          </main>
         </ThemeProvider>
       </body>
     </html>
