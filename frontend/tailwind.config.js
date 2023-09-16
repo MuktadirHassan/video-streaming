@@ -14,6 +14,10 @@ module.exports = {
         "2xl": "1400px",
       },
     },
+    borderColor: {
+      DEFAULT: "hsl(var(--border))",
+    },
+
     extend: {
       colors: {
         border: "hsl(var(--border))",
