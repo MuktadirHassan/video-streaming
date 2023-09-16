@@ -25,7 +25,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <main>
             <Menu />
-            <div className="grid lg:grid-cols-5">
+            <div className="grid lg:grid-cols-8">
               <Sidebar />
               <Main>{children}</Main>
             </div>
