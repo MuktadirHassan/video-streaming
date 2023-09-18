@@ -6,6 +6,7 @@ import path from "node:path";
 import fs from "node:fs/promises";
 import { randomFillSync } from "node:crypto";
 import sendApiResponse from "./utils/sendApiResponse";
+import mediaProcess from "./middlewares/mediaProcess";
 
 const random = (() => {
   const buf = Buffer.alloc(16);
@@ -50,6 +51,7 @@ app.get(
 app.post(
   "/api/v1/video/upload",
   upload.single("video"),
+  mediaProcess,
   catchAsync(async (req, res) => {
     const { file } = req;
     res.send(file);
