@@ -6,7 +6,7 @@ export default function Main({ children }: { children: React.ReactNode }) {
   return (
     <>
       <ScrollArea
-        className="col-span-3 lg:col-span-6 lg:border-l p-4"
+        className="col-span-3 lg:col-span-7 lg:border-l p-4"
         style={{
           height: "calc(100vh - 3rem)",
         }}

@@ -4,7 +4,6 @@ async function getVideoURL() {
     throw new Error(response.statusText);
   }
   const data = await response.json();
-  console.log(data);
   return data.data[0].url;
 }
 
