@@ -171,12 +171,12 @@ function ViewMeta({
                 <TableCell>{BitsToKB(Number(stream.bit_rate))} Kbps</TableCell>
 
                 <TableCell>
-                  {BitsToKB(Number(processedMeta.streams[i].bit_rate))} Kbps
+                  {BitsToKB(Number(processedMeta.streams[i]?.bit_rate))} Kbps
                 </TableCell>
                 <TableCell>
                   {(
                     ((Number(stream.bit_rate) -
-                      Number(processedMeta.streams[i].bit_rate)) /
+                      Number(processedMeta.streams[i]?.bit_rate)) /
                       Number(stream.bit_rate)) *
                     100
                   ).toFixed(2)}
@@ -187,11 +187,11 @@ function ViewMeta({
                 <TableCell>Codec</TableCell>
                 <TableCell>{stream.codec_long_name}</TableCell>
                 <TableCell>
-                  {processedMeta.streams[i].codec_long_name}
+                  {processedMeta.streams[i]?.codec_long_name}
                 </TableCell>
                 <TableCell>
                   {stream.codec_long_name ===
-                  processedMeta.streams[i].codec_long_name ? (
+                  processedMeta.streams[i]?.codec_long_name ? (
                     <span className="text-green-500">✓</span>
                   ) : (
                     <span className="text-red-500">✗</span>
@@ -201,9 +201,10 @@ function ViewMeta({
               <TableRow>
                 <TableCell>Codec Name</TableCell>
                 <TableCell>{stream.codec_name}</TableCell>
-                <TableCell>{processedMeta.streams[i].codec_name}</TableCell>
+                <TableCell>{processedMeta.streams[i]?.codec_name}</TableCell>
                 <TableCell>
-                  {stream.codec_name === processedMeta.streams[i].codec_name ? (
+                  {stream.codec_name ===
+                  processedMeta.streams[i]?.codec_name ? (
                     <span className="text-green-500">✓</span>
                   ) : (
                     <span className="text-red-500">✗</span>
@@ -213,9 +214,10 @@ function ViewMeta({
               <TableRow>
                 <TableCell>Codec Type</TableCell>
                 <TableCell>{stream.codec_type}</TableCell>
-                <TableCell>{processedMeta.streams[i].codec_type}</TableCell>
+                <TableCell>{processedMeta.streams[i]?.codec_type}</TableCell>
                 <TableCell>
-                  {stream.codec_type === processedMeta.streams[i].codec_type ? (
+                  {stream.codec_type ===
+                  processedMeta.streams[i]?.codec_type ? (
                     <span className="text-green-500">✓</span>
                   ) : (
                     <span className="text-red-500">✗</span>
@@ -226,11 +228,11 @@ function ViewMeta({
                 <TableCell>Display Aspect Ratio</TableCell>
                 <TableCell>{stream.display_aspect_ratio}</TableCell>
                 <TableCell>
-                  {processedMeta.streams[i].display_aspect_ratio}
+                  {processedMeta.streams[i]?.display_aspect_ratio}
                 </TableCell>
                 <TableCell>
                   {stream.display_aspect_ratio ===
-                  processedMeta.streams[i].display_aspect_ratio ? (
+                  processedMeta.streams[i]?.display_aspect_ratio ? (
                     <span className="text-green-500">✓</span>
                   ) : (
                     <span className="text-red-500">✗</span>
@@ -240,49 +242,49 @@ function ViewMeta({
               <TableRow>
                 <TableCell>Duration</TableCell>
                 <TableCell>{stream.duration}</TableCell>
-                <TableCell>{processedMeta.streams[i].duration}</TableCell>
+                <TableCell>{processedMeta.streams[i]?.duration}</TableCell>
                 <TableCell>-</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Duration TS</TableCell>
                 <TableCell>{stream.duration_ts}</TableCell>
-                <TableCell>{processedMeta.streams[i].duration_ts}</TableCell>
+                <TableCell>{processedMeta.streams[i]?.duration_ts}</TableCell>
                 <TableCell>-</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Coded Height</TableCell>
                 <TableCell>{stream.coded_height}</TableCell>
-                <TableCell>{processedMeta.streams[i].coded_height}</TableCell>
+                <TableCell>{processedMeta.streams[i]?.coded_height}</TableCell>
                 <TableCell>-</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Coded Width</TableCell>
                 <TableCell>{stream.coded_width}</TableCell>
-                <TableCell>{processedMeta.streams[i].coded_width}</TableCell>
+                <TableCell>{processedMeta.streams[i]?.coded_width}</TableCell>
                 <TableCell>-</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Height</TableCell>
                 <TableCell>{stream.height}</TableCell>
-                <TableCell>{processedMeta.streams[i].height}</TableCell>
+                <TableCell>{processedMeta.streams[i]?.height}</TableCell>
                 <TableCell>-</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Width</TableCell>
                 <TableCell>{stream.width}</TableCell>
-                <TableCell>{processedMeta.streams[i].width}</TableCell>
+                <TableCell>{processedMeta.streams[i]?.width}</TableCell>
                 <TableCell>-</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Pix Fmt</TableCell>
                 <TableCell>{stream.pix_fmt}</TableCell>
-                <TableCell>{processedMeta.streams[i].pix_fmt}</TableCell>
+                <TableCell>{processedMeta.streams[i]?.pix_fmt}</TableCell>
                 <TableCell>-</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Profile</TableCell>
                 <TableCell>{stream.profile}</TableCell>
-                <TableCell>{processedMeta.streams[i].profile}</TableCell>
+                <TableCell>{processedMeta.streams[i]?.profile}</TableCell>
                 <TableCell>-</TableCell>
               </TableRow>
             </>

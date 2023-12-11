@@ -1,5 +1,4 @@
 import { spawn } from "child_process";
-import { P } from "pino";
 import { logger } from "../config/logger";
 
 const availableCodecs = [
@@ -24,6 +23,11 @@ const availableCodecs = [
     codec: "libvpx-vp9",
     description: "Google VP9 (encoders: libvpx-vp9 )",
   },
+  {
+    label: "AV1",
+    codec: "libaom-av1",
+    description: "Alliance for Open Media AV1 (encoders: libaom-av1 )",
+  },
 ];
 const selectedCodec = availableCodecs[1];
 
@@ -44,7 +48,7 @@ const availableContainers = [
     description: "WebM",
   },
 ];
-const selectedContainer = availableContainers[2];
+const selectedContainer = availableContainers[0];
 
 const availableResolutions = [
   {
@@ -87,18 +91,14 @@ const audioCodecs = [
 const selectedAudioCodec = audioCodecs[0];
 
 const defaultConfig = {
-  videoCodec: {
-    label: "default",
-  },
+  videoCodec: selectedCodec as (typeof availableCodecs)[0],
   container: selectedContainer as (typeof availableContainers)[0],
   resolution: selectedResolution as (typeof availableResolutions)[0],
-  audioCodec: {
-    label: "default",
-  },
-  audioBitrate: null,
-  videoBitrate: null,
-  framerate: null,
-  crf: null,
+  audioCodec: selectedAudioCodec as (typeof audioCodecs)[0],
+  audioBitrate: 128,
+  videoBitrate: 1000,
+  framerate: 30,
+  crf: 23,
 };
 
 function processVideo(file: Express.Multer.File, config = defaultConfig) {
@@ -149,6 +149,10 @@ function processVideo(file: Express.Multer.File, config = defaultConfig) {
 
     ffmpegCommand.push("-f", container.container);
 
+    ffmpegCommand.push("-crf", `${config.crf}`);
+    ffmpegCommand.push("-movflags", "faststart");
+    ffmpegCommand.push("-threads", "0");
+
     let outputPath = `${inputPath.split(".")[0]}_${
       resolution.label
     }_${videoCodec.label.replace(".", "")}_${audioCodec.label.replace(
@@ -161,7 +165,7 @@ function processVideo(file: Express.Multer.File, config = defaultConfig) {
 
     ffmpegCommand.push(`${outputPath}`);
 
-    logger.info(ffmpegCommand, "ffmpeg command");
+    logger.info(ffmpegCommand.join(" "), "ffmpeg command");
 
     const ffmpeg = spawn("ffmpeg", ffmpegCommand);
 

@@ -45,38 +45,39 @@ app.get(
     const processedFsr = await fs.readdir(processedDir);
     const baseUrl = req.protocol + "://" + req.get("host");
 
-    const videos = fsr
-      .filter((f) => f.endsWith(".mp4"))
-      .map((f) => {
-        const [name] = f.split(".");
+    let names: any[] = [];
+    const videos = fsr.map((f) => {
+      const [name] = f.split(".");
+      if (names.includes(name)) return null;
+      names.push(name);
 
-        const processedMeta = processedFsr.find(
-          (pf) => name && pf.startsWith(name) && pf.endsWith(".json")
-        );
-        const processed = processedFsr.find(
-          (pf) => name && pf.startsWith(name) && !pf.endsWith(".json")
-        );
+      const processedMeta = processedFsr.find(
+        (pf) => name && pf.startsWith(name) && pf.endsWith(".json")
+      );
+      const processed = processedFsr.find(
+        (pf) => name && pf.startsWith(name) && !pf.endsWith(".json")
+      );
 
-        const urlMeta = fsr.find((pf) => name && pf.startsWith(name));
-        const url = fsr.find(
-          (pf) => name && pf.startsWith(name) && !pf.endsWith(".json")
-        );
+      const urlMeta = fsr.find((pf) => name && pf.startsWith(name));
+      const url = fsr.find(
+        (pf) => name && pf.startsWith(name) && !pf.endsWith(".json")
+      );
 
-        return {
-          baseUrl,
-          name: f,
-          source: {
-            url: `${baseUrl}/videos/${url}`,
-            meta: `${baseUrl}/videos/${urlMeta}`,
-          },
-          processed: {
-            url: `${baseUrl}/processed/${processed}`,
-            meta: `${baseUrl}/processed/${processedMeta}`,
-          },
-        };
-      });
+      return {
+        baseUrl,
+        name: f,
+        source: {
+          url: `${baseUrl}/videos/${url}`,
+          meta: `${baseUrl}/videos/${urlMeta}`,
+        },
+        processed: {
+          url: `${baseUrl}/processed/${processed}`,
+          meta: `${baseUrl}/processed/${processedMeta}`,
+        },
+      };
+    });
     sendApiResponse(res, 200, "Success", {
-      videos,
+      videos: videos.filter((v) => v),
     });
   })
 );
