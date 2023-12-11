@@ -15,7 +15,7 @@ const opts: pino.LoggerOptions = {
       },
       {
         // file
-        level: "trace",
+        level: "info",
         target: "pino/file",
         options: {
           destination: `${join(__dirname, "..", "..", "logs")}/app.log`,

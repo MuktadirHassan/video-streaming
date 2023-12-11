@@ -25,7 +25,7 @@ const availableCodecs = [
     description: "Google VP9 (encoders: libvpx-vp9 )",
   },
 ];
-const selectedCodec = availableCodecs[0];
+const selectedCodec = availableCodecs[1];
 
 const availableContainers = [
   {
@@ -44,7 +44,7 @@ const availableContainers = [
     description: "WebM",
   },
 ];
-const selectedContainer = availableContainers[0];
+const selectedContainer = availableContainers[2];
 
 const availableResolutions = [
   {
@@ -87,14 +87,18 @@ const audioCodecs = [
 const selectedAudioCodec = audioCodecs[0];
 
 const defaultConfig = {
-  videoCodec: selectedCodec as (typeof availableCodecs)[0],
+  videoCodec: {
+    label: "default",
+  },
   container: selectedContainer as (typeof availableContainers)[0],
   resolution: selectedResolution as (typeof availableResolutions)[0],
-  audioCodec: selectedAudioCodec as (typeof audioCodecs)[0],
+  audioCodec: {
+    label: "default",
+  },
   audioBitrate: null,
-  videoBitrate: 1500,
-  framerate: 30,
-  crf: 23,
+  videoBitrate: null,
+  framerate: null,
+  crf: null,
 };
 
 function processVideo(file: Express.Multer.File, config = defaultConfig) {
@@ -119,11 +123,11 @@ function processVideo(file: Express.Multer.File, config = defaultConfig) {
 
     ffmpegCommand.push("-i", inputPath);
 
-    if (videoCodec) {
+    if (videoCodec.codec) {
       ffmpegCommand.push("-c:v", videoCodec.codec);
     }
 
-    if (audioCodec) {
+    if (audioCodec.codec) {
       ffmpegCommand.push("-c:a", audioCodec.codec);
     }
 
@@ -157,7 +161,7 @@ function processVideo(file: Express.Multer.File, config = defaultConfig) {
 
     ffmpegCommand.push(`${outputPath}`);
 
-    logger.trace("ffmpeg command", ffmpegCommand);
+    logger.info(ffmpegCommand, "ffmpeg command");
 
     const ffmpeg = spawn("ffmpeg", ffmpegCommand);
 

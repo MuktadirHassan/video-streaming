@@ -4,3 +4,4 @@ node_modules
 dist
 outDir
 public
+logs
